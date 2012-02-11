@@ -18,22 +18,22 @@ makes them avilable for client side use.
 
 NodeJS
 
-  var cjade = require('cjade')
-  ...
-  // templates - where to find the template files
-  // c_templates - where to cache compiled templates to
-  app.use(cjade("templates","c_templates"))
+    var cjade = require('cjade')
+    ...
+    // templates - where to find the template files
+    // c_templates - where to cache compiled templates to
+    app.use(cjade("templates","c_templates"))
 
 Browser
 
-  <script src="jquery.js">
-  <script src="/cjade/cjade.js">
+    <script src="jquery.js">
+    <script src="/cjade/cjade.js">
 
-  ..
+    ..
 
-  cjade("test.jade.js",function(err,template){
-    $("#output").append(template({ a:1, b:2 }))
-  }
+    cjade("test.jade.js",function(err,template){
+      $("#output").append(template({ a:1, b:2 }))
+    }
 
 
 
