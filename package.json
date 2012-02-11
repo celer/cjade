@@ -1,0 +1,17 @@
+{
+  "name":"cjade",
+  "version":"0.0.1",
+  "author":"celer@scrypt.net djgiana@gmail.com",
+  "contributors":[],
+  "main":"./lib/cjade.js",
+  "keywords":["jade","jquery","client side","template"],
+  "dependencies":{
+    "uglify-js":">=1.2.5", 
+    "jade":">=0.20.1",
+    "express":">=2.5.8" 
+   },
+  "license":"MIT",
+  "engine":{ 
+    "node":">=0.6"
+  }
+}
