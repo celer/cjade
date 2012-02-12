@@ -1,5 +1,8 @@
-//
 cjade=function(script,onComplete){
+  if(script.substr(-8)==".jade.js")){}
+  else if(script.substr(-5)==".jade")){ script+=".js" }
+  else { script+=".jade.js"; }
+
   jQuery.ajax({
     dataType: "script",
     cache: true,
