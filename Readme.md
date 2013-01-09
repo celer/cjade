@@ -34,9 +34,20 @@ Browser
 
     ..
 
+		/**
+			Basic utilty function to load the specified client side template
+		*/
     cjade("test.jade.js",function(err,template){
       $("#output").append(template({ a:1, b:2 }))
     });
+		
+
+		/**
+			cjade.defaults can be used to set default values for the options specified above
+		*/
+		cjade.defaults({
+			busyImage:"/images/busy.gif"
+		});
 
 		/**
 			cjade.load is a utility function which:
@@ -80,12 +91,6 @@ Browser
 			}
 		});
 	
-		/**
-			cjade.defaults can be used to set default values for the options specified above
-		*/
-		cjade.defaults({
-			busyImage:"/images/busy.gif"
-		});
 		
 ```
 
