@@ -1,13 +1,67 @@
 html
-  head
-    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
-    script(src="/cjade/cjade.js")
-    script
-      $(document).ready(function(){
-        cjade("test.jade.js",function(err,tpl){
-          $("#test").append(tpl());
-        });
-      });
-  body
-    div#test
+	head
+		script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+		script(src="/cjade/cjade.js")
+		script
+			$(document).ready(function(){
+				cjade("test.jade.js",function(err,tpl){
+					$("#test").append(tpl());
+				});
+
+				cjade.load("#test1","test1.jade.js",function(err,next){
+					console.log(err,next);
+					setTimeout(function(){
+						next.render({ name: "Bob" });
+					},2000);
+				});
+				
+				cjade.load("#test2","test1.jade.js",{ busyImage: 'waiting.gif'}, function(err,next){
+					console.log(err,next);
+					setTimeout(function(){
+						next.render({ name: "Bob" });
+					},2000);
+				});
+				
+				cjade.load("#test3","test1.jade.js",{ busy:function(element,options){ element.empty(); element.append("Busy");  }  }, function(err,next){
+					console.log(err,next);
+					setTimeout(function(){
+						next.render({ name: "Bob" });
+					},2000);
+				});
+				
+				cjade.load("#error","error.jade.js",function(err,next){
+					console.log(err,next);
+				});
+				
+				cjade.load("#error1","error1.jade.js",function(err,next){
+					console.log(err,next);
+				});
+				
+				cjade.load("#error2","error2.jade.js",function(err,next){
+					next.render(foo);
+				});
+				
+				cjade.load("#error3","error2.jade.js", { error: function(element,options,err){ element.empty(); element.append(err); } },function(err,next){
+					next.render(foo);
+				});
+				
+
+			});
+	body
+		h3 simple test to load template
+		div#test
+		h3 template helper function with delay
+		div#test1(style="width:100px;height:100px; background:grey;")
+		h3 template helper function with delay with custom image
+		div#test2(style="width:100px;height:100px; background:grey;")
+		h3 template helper function with delay with custom busy function 
+		div#test3(style="width:100px;height:100px; background:grey;")
+		h3 template parse error
+		div#error
+		h3 missing template 
+		div#error1
+		h4 js syntax error
+		div#error2
+		h4 js syntax error, with custom error function
+		div#error3
 

@@ -18,14 +18,17 @@ makes them avilable for client side use.
 
 NodeJS
 
+```javascript
     var cjade = require('cjade')
     ...
     // templates - where to find the template files
     // c_templates - where to cache compiled templates to
     app.use(cjade("templates","c_templates"))
+```
 
 Browser
 
+```javascript
     <script src="jquery.js">
     <script src="/cjade/cjade.js">
 
@@ -33,9 +36,60 @@ Browser
 
     cjade("test.jade.js",function(err,template){
       $("#output").append(template({ a:1, b:2 }))
-    }
+    });
 
+		/**
+			cjade.load is a utility function which:
+				- provides a busy image functionality to be displayed while the template is loaded and business logic is executed
+				- provides default error handling
 
+			@param {string} selector
+				jQuery selector
+			@param {string} template to load
+				this template will be loaded and eventually rendered into the specified selector
+			@param {object} options 
+				optional arguments
+				@param {string} busyImage	
+					an image to be loaded while waiting for the utility function to finish
+				@param {function} render(element,templateFunc,err,templateData)
+					this function is called when the render function defined below is called to populate the templateData using the templateFunc into the specified jQuery element
+				@param {function} busy(element,options)
+					this function is called with the specified element prior to fetching the template and executing business logic
+				@param {function} error(element,options,err)
+					this function is called when an error occurs
+			@param {function} onComplete(err,next)
+				this function should contain business logic and is called after the template is loaded
+				@param {string} err
+					an error message
+				@param {object} next
+					an object which can be used to either render the template or specify an error
+					@param {function} render(templateData)
+						calling this function will render the template into the specified jQuery selector utilizing the templateData
+					@param {function} error(err) 
+						calling this function will call the error function specified in the options
+		*/
+		cjade.load("#userView","userView.jade.js", function(err,next){
+			if(!err){
+				UserService.load({ id: user.id},function(err,user){
+					if(err){
+						next.error(err);
+					} else next.render(user);
+				});	
+			} else {
+				return next.error(err);
+			}
+		});
+	
+		/**
+			cjade.defaults can be used to set default values for the options specified above
+		*/
+		cjade.defaults({
+			busyImage:"/images/busy.gif"
+		});
+		
+```
+
+See examples/test.js for more examples
 
 ## License 
 
