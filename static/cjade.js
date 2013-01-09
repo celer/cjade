@@ -26,7 +26,7 @@ cjade=function(script,onComplete){
 cjade.options={
 	busyImage:"/cjade/waiting.gif", 
 	busy:function(element,options){ element.empty(); element.append("<table width='100%' height='100%'><tr><td valign='center' align='center'><img src='"+options.busyImage+"'/></td></tr></table>"); },
-	error:function(element,options,err){ element.empty(); element.append("<span style='color:red'>"+err+"</span>"); },
+	error:function(element,options,err){ element.empty(); element.append("<span style='color:red'>Error rendering template: "+err+"</span>"); },
 	render:function(element,templateFunc,err,result){ 
 			element.empty();
 			element.append(templateFunc(result));
