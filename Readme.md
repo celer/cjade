@@ -43,7 +43,9 @@ Browser
 		
 
 		/**
-			cjade.defaults can be used to set default values for the options specified above
+			cjade.defaults can be used to set default values for the options specified below
+			
+			There is no need to specify any defaults by default :P cjade will use it's own busy image, functions, etc 
 		*/
 		cjade.defaults({
 			busyImage:"/images/busy.gif"
