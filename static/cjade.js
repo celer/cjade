@@ -10,7 +10,6 @@ cjade=function(script,onComplete){
     success:function(data){
       _data=data;
       if(data) {
-				console.log(data);
         try {
 					if(data.code){
 						var tpl=eval(data.code);
@@ -29,6 +28,7 @@ cjade=function(script,onComplete){
 }
 
 cjade.options={
+	busyDelay:370,
 	busyImage:"/cjade/waiting.gif", 
 	busy:function(element,options){ element.empty(); element.append("<table width='100%' height='100%'><tr><td valign='center' align='center'><img src='"+options.busyImage+"'/></td></tr></table>"); },
 	error:function(element,options,err){ element.empty(); element.append("<span style='color:red'>Error rendering template: "+err+"</span>"); },
@@ -48,6 +48,7 @@ cjade.load=function(selector,template,options,onComplete){
 		options = cjade.options;
 	} 
 
+	options.busyDelay=options.busyDelay||cjade.options.busyDelay;
 	options.busyImage=options.busyImage||cjade.options.busyImage;
 	options.busy = options.busy||cjade.options.busy;
 	options.error = options.error||cjade.options.error;
@@ -55,14 +56,21 @@ cjade.load=function(selector,template,options,onComplete){
 
 	var element = $(selector);
 
-
-	options.busy(element,options);
+	var loaded=false;
+	setTimeout(function(){		
+		console.log("showing busy",options.busyDelay);
+		if(loaded==false){
+			options.busy(element,options);
+		}
+	},options.busyDelay);
 	cjade(template,function(err,templateFunc){
 		var next={
 			render:function(err,result){ 
+				loaded=true;
 				options.render(element,templateFunc,err,result);
 			}, 
 			error:function(err,result){
+				loaded=true;
 				options.error(element,options,err);
 			},
 			template:templateFunc
