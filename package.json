@@ -1,6 +1,6 @@
 {
   "name": "cjade",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "author": "celer@scrypt.net djgiana@gmail.com",
   "contributors": [],
   "main": "./lib/cjade.js",
