@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "uglify-js": ">=2.2.5",
-    "jade": ">=0.28.1"
+    "jade": "0.31.0"
   },
   "license": "MIT",
   "engine": {
